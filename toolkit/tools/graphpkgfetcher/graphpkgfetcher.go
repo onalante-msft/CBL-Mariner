@@ -139,6 +139,11 @@ func resolveGraphNodes(dependencyGraph *pkggraph.PkgGraph, inputSummaryFile, out
 					logger.Log.Debugf(errorMessage.String())
 				}
 			} else {
+				// For delta builds, try to resolve all non-implicit run nodes
+				if n.Implicit == true {
+					logger.Log.Warnf("Do not attempt to resolve implicit node: '%s'", n.FriendlyName())
+					continue
+				}
 				resolveErr := resolveSingleNode(cloner, n, toolchainPackages, fetchedPackages, prebuiltPackages, *outDir)
 				if resolveErr != nil {
 					logger.Log.Warnf("resolveSingleNode() FAILED. Do not modify: '%s'", n.FriendlyName())
