@@ -1,7 +1,7 @@
 Summary:        Utilities for file systems, consoles, partitions, and messages
 Name:           util-linux
 Version:        2.37.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -70,7 +70,6 @@ autoreconf -fi
     --disable-nologin \
     --disable-chfn-chsh \
     --disable-login \
-    --disable-su \
     --disable-silent-rules \
     --disable-static \
     --disable-use-tty-group \
@@ -142,6 +141,9 @@ rm -rf %{buildroot}/lib/systemd/system
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jun 17 2022 Andrew Phelps <anphel@microsoft.com> - 2.37.4-2
+- Enable su
+
 * Tue Jun 07 2022 Pawel Winogrodzki <pawelwi@microsoft.com> - 2.37.4-1
 - Updating to 2.37.4 to fix CVE-2022-0563.
 

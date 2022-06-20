@@ -1,7 +1,7 @@
 Summary:        Programs for handling passwords in a secure way
 Name:           shadow-utils
 Version:        4.9
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        BSD
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -175,6 +175,9 @@ chmod 000 %{_sysconfdir}/shadow
 %{_libdir}/libsubid.so
 
 %changelog
+* Fri Jun 17 2022 Andrew Phelps <anphel@microsoft.com> - 4.9-10
+- Remove su
+
 * Mon Apr 18 2022 Minghe Ren <mingheren@microsoft.com> - 4.9-9
 - Change /etc/shadow file permission to 000 and make it trackable by shadow-utils
 
