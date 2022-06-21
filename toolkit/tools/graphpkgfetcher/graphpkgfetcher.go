@@ -141,7 +141,9 @@ func resolveGraphNodes(dependencyGraph *pkggraph.PkgGraph, inputSummaryFile, out
 			} else {
 				// For delta builds, try to resolve all non-implicit run nodes
 				if n.Implicit == true {
-					logger.Log.Warnf("Do not attempt to resolve implicit node: '%s'", n.FriendlyName())
+					logger.Log.Warnf("Remove Build node for implicit node: '%s'", n.FriendlyName())
+					nodes, _ := dependencyGraph.FindExactPkgNodeFromPkg(n.VersionedPkg)
+					dependencyGraph.RemovePkgNode(nodes.BuildNode)
 					continue
 				}
 				resolveErr := resolveSingleNode(cloner, n, toolchainPackages, fetchedPackages, prebuiltPackages, *outDir)
