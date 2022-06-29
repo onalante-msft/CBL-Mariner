@@ -284,7 +284,7 @@ func (r *RpmRepoCloner) Clone(cloneDeps bool, packagesToClone ...*pkgjson.Packag
 		if cloneDeps {
 			args = append([]string{"download", "--alldeps"}, args...)
 		} else {
-			args = append([]string{"download-nodeps"}, args...)
+			args = append([]string{"download"}, args...)
 		}
 
 		err = r.chroot.Run(func() (err error) {
