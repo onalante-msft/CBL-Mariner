@@ -6,7 +6,7 @@
 Summary:        GRand Unified Bootloader
 Name:           grub2
 Version:        2.06
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPLv3+
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -313,6 +313,9 @@ cp $GRUB_MODULE_SOURCE $EFI_BOOT_DIR/$GRUB_MODULE_NAME
 %endif
 
 %changelog
+* Fri Jul 08 2022 Andrew Phelps <anphel@microsoft.com> - 2.06-4
+- Update to test delta build
+
 * Fri Feb 25 2022 Henry Li <lihl@microsoft.com> - 2.06-3
 - Enable multiboot2 support for x86_64
 
