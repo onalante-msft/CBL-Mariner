@@ -1,7 +1,7 @@
 Summary:        Basic system utilities
 Name:           coreutils
 Version:        8.32
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPLv3
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -22,15 +22,14 @@ Patch4:         CVE-2013-0222.nopatch
 # CVE-2013-0223 is fixed in coreutils-8.32-i18n-1.patch
 Patch5:         CVE-2013-0223.nopatch
 Patch6:         skip_test_if_run_as_root.patch
+Patch7:         fix_test_env_signal_handler.patch
+Patch8:         coreutils-fix-get-sys_getdents-aarch64.patch
 BuildRequires:  libselinux-devel
 BuildRequires:  libselinux-utils
 Requires:       gmp
 Requires:       libselinux
 Conflicts:      toybox
 Provides:       sh-utils
-%ifarch aarch64
-Patch7:         coreutils-fix-get-sys_getdents-aarch64.patch
-%endif
 %if %{with_check}
 BuildRequires:  perl
 BuildRequires:  perl(File::Find)
@@ -49,7 +48,11 @@ Requires:       coreutils >= %{version}
 These are the additional language files of coreutils.
 
 %prep
-%autosetup -p1
+%autosetup -N
+%autopatch -p1 -m0 -M7
+%ifarch aarch64
+%patch8 -p1
+%endif
 
 %build
 autoreconf -fi
@@ -105,6 +108,10 @@ LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 make -k check
 %defattr(-,root,root)
 
 %changelog
+* Mon Jul 10 202 Olivia Crain <oliviacrain@microsoft.com> - 8.32-5
+- Add upstream patch to fix race in env-signal-handler test
+- Ensure SRPMs built on any architecture include all patches
+
 * Wed Jun 29 2022 Olivia Crain <oliviacrain@microsoft.com> - 8.32-4
 - Configure build to output `arch` binary (equivalent to `uname -m`)
 
